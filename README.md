@@ -25,8 +25,10 @@ To be able to incorporate current knowledge of C to build complex projects
 
 9. `tokenize_command.c`: This file contains the implementation of the `tokenize_command` function, which tokenizes a command into individual arguments.
 
-10. `env_builtin.c`: Contains the implementation of the `env_builtin()` function, which prints the current environment variables. 
+10. `env_builtin.c`: Contains the implementation of the `env_builtin()` function, which prints the current environment variables.
 
 11. `custom_getline.c`: This file contains the implementation of the `custom_getline(void)` function, which reads input from the standard input using a buffer to minimize the number of read system calls.
+
+12. `custom_strtok.c` : This file contains the implementation of the `char *custom_strtok(char *str, const char *delimiters)` function,the custom_strtok function is a custom implementation of the strtok function in C.
 
 When you compile and link all these files together, you will have a complete Simple Shell program capable of accepting user commands, executing them (with or without arguments), displaying the prompt, and handling any errors that may occur during execution. The split-up implementation allows for better code organization and maintainability, making it easier to understand and modify specific parts of the shell functionality as needed.

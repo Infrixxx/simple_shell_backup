@@ -17,13 +17,13 @@ char **tokenize_command(char *command)
 		return (NULL);
 	}
 
-	char *token = strtok(command, " ");
+	char *token = custom_strtok(command, " ");
 
 	while (token != NULL)
 	{
 		args[i] = token;
 		i++;
-		token = strtok(NULL, " ");
+		token = custom_strtok(NULL, " ");
 	}
 	args[i] = NULL;
 
