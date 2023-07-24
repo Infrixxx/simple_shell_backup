@@ -35,4 +35,14 @@ To be able to incorporate current knowledge of C to build complex projects
 
 14. `free_arguments.c` : Free the memory allocated for an array of strings.
 
+15. `builtins.c` is a source file containing the implementations of the built-in commands for our custom shell application. Built-in commands are fundamental functionalities recognized and executed directly by the shell, rather than external programs.
+
+Functions in `builtins.c`:
+
+1. `int setenv_builtin(char **args)`: Implements the `setenv` built-in command to initialize or modify environment variables. It expects `args[1]` as the variable name and `args[2]` as the value. Prints usage instructions on incorrect syntax and returns `-1` on failure.
+
+2. `int unsetenv_builtin(char **args)`: Implements the `unsetenv` built-in command to remove environment variables. It expects `args[1]` as the variable name. Prints usage instructions on incorrect syntax and returns `-1` on failure.
+
+These functions handle the execution of built-in commands in the shell, making interactions with the shell environment more convenient.
+
 When you compile and link all these files together, you will have a complete Simple Shell program capable of accepting user commands, executing them (with or without arguments), displaying the prompt, and handling any errors that may occur during execution. The split-up implementation allows for better code organization and maintainability, making it easier to understand and modify specific parts of the shell functionality as needed.

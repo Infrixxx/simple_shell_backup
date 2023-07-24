@@ -14,6 +14,13 @@ void execute_command(char *command)
 		return;
 	}
 
+	/* Check if the command is a built-in and execute it */
+	if (execute_builtin(args))
+	{
+		free_arguments(args);
+		return;
+	}
+
 	if (strcmp(args[0], "exit") == 0)
 	{
 		int status = 0;
