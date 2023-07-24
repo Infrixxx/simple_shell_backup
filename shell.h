@@ -25,5 +25,7 @@ int check_executable(char *command);
 void env_builtin(void);
 char *custom_getline(void);
 char *custom_strtok(char *str, const char *delimiters);
+int custom_atoi(const char *str);
+void free_arguments(char **args)
 
 #endif /* SHELL_H */
