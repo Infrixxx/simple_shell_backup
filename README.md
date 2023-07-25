@@ -45,4 +45,14 @@ Functions in `builtins.c`:
 
 These functions handle the execution of built-in commands in the shell, making interactions with the shell environment more convenient.
 
+16. `builtins1.c` is a C source file that implements the built-in command `cd` for our simple shell program. The file defines the `cd_builtin` function, which allows the user to change the current working directory of the shell process.
+
+**Functions:**
+
+1. `int cd_builtin(char **args)`: This function is the implementation of the `cd` built-in command. It takes an array of command arguments as input, where `args[0]` is expected to be the command "cd" and `args[1]` (if present) is the directory path to change to. The function first checks for special cases where no directory is provided or when the user wants to change to the previous working directory using `cd -`. It then updates the current working directory using `chdir()` and updates the `PWD` environment variable to reflect the new directory.
+
+2. `static char *get_home_directory(void)`: This is a helper function that retrieves the user's home directory path from the `HOME` environment variable. If the variable is not set, it prints an error message to `stderr` and returns NULL.
+
+3. `static char *get_oldpwd_directory(void)`: This is another helper function that retrieves the previous working directory path from the `OLDPWD` environment variable. If the variable is not set, it prints an error message to `stderr` and returns NULL.
+
 When you compile and link all these files together, you will have a complete Simple Shell program capable of accepting user commands, executing them (with or without arguments), displaying the prompt, and handling any errors that may occur during execution. The split-up implementation allows for better code organization and maintainability, making it easier to understand and modify specific parts of the shell functionality as needed.

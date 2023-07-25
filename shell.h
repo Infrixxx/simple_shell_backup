@@ -30,4 +30,5 @@ void free_arguments(char **args);
 int setenv_builtin(char **args);
 int unsetenv_builtin(char **args);
 int execute_builtin(char **args);
+int cd_builtin(char **args);
 #endif /* SHELL_H */
