@@ -15,6 +15,17 @@
 #define BUFFER_SIZE 1024
 #define LINE_BUFFER_SIZE 128
 
+/*Structure to hold an alias*/
+typedef struct Alias
+{
+	char *name;
+	char *value;
+	struct Alias *next;
+} Alias;
+
+/*LIST*/
+extern Alias *alias_list;
+
 /*Function prototypes*/
 void display_prompt(void);
 char *read_command(void);
@@ -32,5 +43,13 @@ int unsetenv_builtin(char **args);
 int execute_builtin(char **args);
 int cd_builtin(char **args);
 void execute_commands_separated_by_semicolon(char *command);
+void execute_commands_separated_by_logical_and(char *command);
+void execute_commands_separated_by_logical_or(char *command);
+void execute_single_command(char **args);
+void add_alias(Alias **alias_list, char *name, char *value);
+char *get_alias_value(Alias *alias_list, char *name);
+void print_aliases(Alias *alias_list, char **names);
+int alias_builtin(char **args);
 
 #endif /* SHELL_H */
+

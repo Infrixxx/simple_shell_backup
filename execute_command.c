@@ -13,13 +13,11 @@ void execute_command(char *command)
 		perror("Memory Allocation Error");
 		return;
 	}
-
 	if (execute_builtin(args))
 	{
 		free_arguments(args);
 		return;
 	}
-
 	if (strcmp(args[0], "exit") == 0)
 	{
 		int status = 0;
@@ -28,21 +26,38 @@ void execute_command(char *command)
 		{
 			status = custom_atoi(args[1]);
 		}
-
 		free_arguments(args);
 		exit(status);
 	}
-
 	if (strchr(command, ';'))
 	{
 		execute_commands_separated_by_semicolon(command);
 	}
-	else if (check_executable(args[0]))
+	else if (strchr(command, '&'))
+	{
+		execute_commands_separated_by_logical_and(command);
+	}
+	else if (strchr(command, '|'))
+	{
+		execute_commands_separated_by_logical_or(command);
+	}
+	else
+	{
+		execute_single_command(args);
+	}
+	free_arguments(args);
+}
+
+/**
+ * execute_single_command - execute single command without && ||
+ * @args: The command and its arguments as an array
+ */
+void execute_single_command(char **args)
+{
+	if (check_executable(args[0]))
 	{
 		execute_command_with_args(args);
 	}
-
-	free_arguments(args);
 }
 
 /**
@@ -62,10 +77,72 @@ void execute_commands_separated_by_semicolon(char *command)
 
 		if (args != NULL)
 		{
-			execute_command_with_args(args);
+			execute_single_command(args);
 			free_arguments(args);
 		}
 
 		token = custom_strtok(NULL, ";", &saveptr);
+	}
+}
+
+/**
+ * execute_commands_separated_by_logical_and - Execute commands separated by &&
+ * @command: The command to execute
+ */
+void execute_commands_separated_by_logical_and(char *command)
+{
+	char *token;
+	char *saveptr;
+
+	token = custom_strtok(command, "&", &saveptr);
+
+	while (token != NULL)
+	{
+		char **args = tokenize_command(token);
+
+		if (args != NULL)
+		{
+			int status = execute_command_with_args(args);
+
+			free_arguments(args);
+
+			if (status != 0)
+			{
+				break;
+			}
+		}
+
+		token = custom_strtok(NULL, "&", &saveptr);
+	}
+}
+
+/**
+ * execute_commands_separated_by_logical_or - Execute commands separated by ||
+ * @command: The command to execute
+ */
+void execute_commands_separated_by_logical_or(char *command)
+{
+	char *token;
+	char *saveptr;
+
+	token = custom_strtok(command, "|", &saveptr);
+
+	while (token != NULL)
+	{
+		char **args = tokenize_command(token);
+
+		if (args != NULL)
+		{
+			int status = execute_command_with_args(args);
+
+			free_arguments(args);
+
+			if (status == 0)
+			{
+				break;
+			}
+		}
+
+		token = custom_strtok(NULL, "|", &saveptr);
 	}
 }
