@@ -12,20 +12,22 @@ char *replace_variables(char *command, int last_status_code)
 		return (NULL);
 
 	char *result = malloc(strlen(command) + 1);
-
 	if (!result)
 		return (NULL);
 
-	char *p = command, *r = result, *value;
-	char variable[BUFFER_SIZE];
+	char *p = command, *r = result, *value, variable[BUFFER_SIZE];
 
 	while (*p)
 	{
-		if (*p == '$')
+		if (*p == '#')
+		{
+			while (*p && *p != '\n')
+				p++;
+		}
+		else if (*p == '$')
 		{
 			p++;
 			char *v = variable;
-
 			while (*p && isalnum(*p))
 				*v++ = *p++;
 			*v = '\0';
@@ -36,7 +38,6 @@ char *replace_variables(char *command, int last_status_code)
 				value = custom_itoa(getpid());
 			else
 				value = getenv(variable);
-
 			if (value)
 				while (*value)
 					*r++ = *value++;
@@ -44,10 +45,9 @@ char *replace_variables(char *command, int last_status_code)
 		else
 			*r++ = *p++;
 	}
-
 	*r = '\0';
 	return (result);
-}
+}i
 
 /**
  * custom_itoa - Convert an integer to a string.
