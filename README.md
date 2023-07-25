@@ -7,7 +7,7 @@ To be able to incorporate current knowledge of C to build complex projects
 
 # Files : #
 
-### 1. `check_executable.c`: 
+### 1. `check_executable.c`:
 This file contains the implementation of the `check_executable` function, which checks if a given command is an executable file.
 
 ### 2. `execute_command.c`:
@@ -49,7 +49,7 @@ Custom implementation of the atoi function.
 ### 14. `free_arguments.c` :
 Free the memory allocated for an array of strings.
 
-### 15. `builtins.c` : 
+### 15. `builtins.c` :
 is a source file containing the implementations of the built-in commands for our custom shell application. Built-in commands are fundamental functionalities recognized and executed directly by the shell, rather than external programs.
 
 #### Functions in `builtins.c`:
@@ -60,7 +60,7 @@ is a source file containing the implementations of the built-in commands for our
 
 These functions handle the execution of built-in commands in the shell, making interactions with the shell environment more convenient.
 
-### 16. `builtins1.c` : 
+### 16. `builtins1.c` :
 is a C source file that implements the built-in command `cd` for our simple shell program. The file defines the `cd_builtin` function, which allows the user to change the current working directory of the shell process.
 
 #### Functions:
