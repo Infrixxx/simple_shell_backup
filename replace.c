@@ -3,6 +3,7 @@
 /**
  * replace_variables - Replace variables in the command with their values.
  * @command: The command to process.
+ * @last_status_code: The status code of the last executed command.
  *
  * Return: The command with variables replaced, or NULL on failure.
  */
@@ -12,6 +13,7 @@ char *replace_variables(char *command, int last_status_code)
 		return (NULL);
 
 	char *result = malloc(strlen(command) + 1);
+
 	if (!result)
 		return (NULL);
 
@@ -28,10 +30,10 @@ char *replace_variables(char *command, int last_status_code)
 		{
 			p++;
 			char *v = variable;
+
 			while (*p && isalnum(*p))
 				*v++ = *p++;
 			*v = '\0';
-
 			if (strcmp(variable, "?") == 0)
 				value = custom_itoa(last_status_code);
 			else if (strcmp(variable, "$") == 0)
@@ -47,7 +49,7 @@ char *replace_variables(char *command, int last_status_code)
 	}
 	*r = '\0';
 	return (result);
-}i
+}
 
 /**
  * custom_itoa - Convert an integer to a string.
