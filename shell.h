@@ -31,4 +31,6 @@ int setenv_builtin(char **args);
 int unsetenv_builtin(char **args);
 int execute_builtin(char **args);
 int cd_builtin(char **args);
+void execute_commands_separated_by_semicolon(char *command);
+
 #endif /* SHELL_H */
