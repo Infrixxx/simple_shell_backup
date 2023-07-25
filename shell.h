@@ -53,6 +53,8 @@ int alias_builtin(char **args);
 char *replace_variables(char *command);
 int custom_strlen(char **arr);
 void execute_child_process(char **args);
+int execute_commands_from_file(const char *filename);
+int execute_interactive_shell(void);
 
 #endif /* SHELL_H */
 
